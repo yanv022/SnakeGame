@@ -28,3 +28,9 @@ function draw(g::Game)
         draw_start_screen()
         return
     end
+
+    # Zeichne Game-Over-Bildschirm
+    if gameover
+        draw_game_over_screen()
+        return
+    end
