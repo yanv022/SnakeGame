@@ -20,3 +20,11 @@ function draw_game_over_screen()
     restart_message.pos = (WIDTH / 2 - 130, HEIGHT / 2 + 20)
     draw(restart_message)
 end
+
+# Zeichnet das Spielfeld, die Schlange, Äpfel und Hindernisse.
+function draw(g::Game)
+    # Zeichne Startbildschirm
+    if game_started == false
+        draw_start_screen()
+        return
+    end
