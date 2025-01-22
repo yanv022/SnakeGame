@@ -1,3 +1,64 @@
+WIDTH = 600
+HEIGHT = 720
+BACKGROUND = colorant"antiquewhite"
+header = 120
+global game_started = false
+global gameover_sound_played = false
+
+snake_pos_x = WIDTH / 2
+snake_pos_y = (HEIGHT - header) / 2 + header
+snake_size = 20
+snake_color = colorant"green"
+
+snake_head = Rect(
+    snake_pos_x, snake_pos_y, snake_size, snake_size
+)
+
+snake_body = []
+
+# Diese Funktion vergrößert den Schlangenkörper, indem sie ein Segment hinzufügt.
+function grow()
+    push!(snake_body,
+        Rect(
+            snake_head.x, snake_head.y, snake_size, snake_size
+        )
+    )
+end
+
+grow()
+
+apple_size = snake_size
+apple_color = colorant"red"
+
+# Diese Funktion generiert eine neue Position für einen Apfel, die nicht vom Schlangenkörper besetzt ist.
+function spawn()
+    xrange = collect(0:snake_size:(WIDTH - snake_size))
+    yrange = collect(header:snake_size:(HEIGHT - snake_size))
+    x = rand(xrange)
+    y = rand(yrange)
+    occupied = []
+    for i in 1:length(snake_body)
+        push!(occupied, (snake_body[i].x, snake_body[i].y))
+    end
+    if (x, y) in occupied
+        spawn()
+    else
+        return x, y
+    end
+end
+
+apple_pos_x, apple_pos_y = spawn()
+apple = Rect(
+    apple_pos_x, apple_pos_y, apple_size, apple_size
+)
+
+special_apple_color = colorant"skyblue"
+global special_apple = nothing
+# Timer, um die Dauer des speziellen Apfels zu verfolgen
+# Dauer (in Sekunden), wie lange der spezielle Apfel auf dem Bildschirm bleibt
+global special_apple_timer = 0
+global special_apple_duration = 5
+
 #Zeichnet den Startbildschirm mit Titel und Aufforderung.
 function draw_start_screen()
     draw(Rect(0, 0, WIDTH, HEIGHT), colorant"black", fill = true)
