@@ -104,6 +104,32 @@ function collide_head_body()
     end
 end
 
+# Überprüft, ob der Schlangenkopf mit einem Apfel kollidiert, und aktualisiert den Status.
+function collide_head_apple()
+    global delay, level, score
+    if collide(snake_head, apple)
+        apple.x, apple.y = spawn()
+        play_sound("mange1")
+        grow()
+        if delay > delay_limit
+            delay -= 0.01
+        end
+        score += 1
+        if score == target_score_level_2 && level == 1
+            level = 2
+            generate_symmetric_obstacles(level)
+        elseif score == target_score_level_3 && level == 2
+            level = 3
+            generate_symmetric_obstacles(level)
+        elseif score == target_score_level_4 && level == 3
+            level = 4
+            generate_symmetric_obstacles(level)
+        elseif score == target_score_level_5 && level == 4
+            level = 5
+            generate_symmetric_obstacles(level)
+        end
+    end
+end
 #Zeichnet den Startbildschirm mit Titel und Aufforderung.
 function draw_start_screen()
     draw(Rect(0, 0, WIDTH, HEIGHT), colorant"black", fill = true)
