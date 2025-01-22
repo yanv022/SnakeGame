@@ -122,3 +122,23 @@ function on_key_down(g::Game, k)
     end
 end
 
+# Setzt den Spielstatus zurück und initialisiert alle Variablen neu.
+function reset()
+    global snake_head, snake_body, obstacles, score, high_score, level, delay, gameover, special_apple, gameover_sound_played
+    if score > high_score
+        high_score = score
+    end
+    snake_head = Rect(snake_pos_x, snake_pos_y, snake_size, snake_size)
+    snake_body = []
+    grow()
+    apple_pos_x, apple_pos_y = spawn()
+    apple.x, apple.y = apple_pos_x, apple_pos_y
+    special_apple = nothing
+    obstacles = []
+    score = 0
+    level = 1
+    delay = 0.2
+    gameover = false
+    gameover_sound_played = false
+end
+
