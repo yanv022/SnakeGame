@@ -141,6 +141,16 @@ function draw_start_screen()
     draw(subtitle)
 end
 
+# Überprüft, ob der Schlangenkopf mit einem speziellen Apfel kollidiert.
+function collide_special_apple()
+    global special_apple, delay, score
+    if special_apple !== nothing && collide(snake_head, special_apple)
+        play_sound("mange")
+        score += 2
+        delay += 0.05
+        special_apple = nothing
+    end
+end
 
 # Zeichnet den Game-Over-Bildschirm mit der Endpunktzahl.
 function draw_game_over_screen()
