@@ -142,3 +142,46 @@ function reset()
     gameover_sound_played = false
 end
 
+# Behandelt Mausklicks, um das Spiel zu starten oder neu zu starten.
+function on_mouse_down(g::Game)
+    global game_started
+    if !game_started
+        game_started = true
+    elseif gameover == true
+        reset()
+    end
+end
+
+# Aktualisiert den Spielstatus bei jedem Frame.
+function update(g::Game)
+    if !game_started
+        return
+    end
+    if gameover == false
+        global snake_body, special_apple, special_apple_timer
+        move()
+        border()
+        collide_head_body()
+        collide_head_apple()
+        collide_special_apple()
+        collide_head_obstacles()
+        grow()
+        popat!(snake_body, 1)
+        sleep(delay)
+        if special_apple !== nothing
+            special_apple_timer -= 1
+            if special_apple_timer <= 0
+                special_apple = nothing
+            end
+        elseif rand() < 0.01
+            spawn_special_apple()
+            special_apple_timer = special_apple_duration * 10
+        end
+    else
+        global gameover_sound_played
+        if !gameover_sound_played
+           play_sound("gameOver")
+            gameover_sound_played = true
+        end
+    end
+end
