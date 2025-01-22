@@ -59,6 +59,51 @@ global special_apple = nothing
 global special_apple_timer = 0
 global special_apple_duration = 5
 
+
+# Diese Funktion generiert einen speziellen Apfel an einer zufälligen Position.
+function spawn_special_apple()
+    global special_apple
+    apple_pos_x, apple_pos_y = spawn()
+    special_apple = Rect(apple_pos_x, apple_pos_y, apple_size, apple_size)
+end
+
+speed = snake_size
+vx = speed
+vy = 0
+
+delay = 0.2
+delay_limit = 0.05
+score = 0
+high_score = 0
+gameover = false
+
+# Bewegt die Schlange basierend auf ihrer Geschwindigkeit.
+function move()
+    snake_head.x += vx
+    snake_head.y += vy
+end
+
+# Überprüft, ob die Schlange die Spielfeldgrenzen überschritten hat.
+function border()
+    global gameover
+    if snake_head.x == WIDTH ||
+        snake_head.x < 0 ||
+        snake_head.y == HEIGHT ||
+        snake_head.y < header
+            gameover = true
+    end
+end
+
+# Überprüft, ob der Schlangenkopf mit dem Körper kollidiert.
+function collide_head_body()
+    global gameover
+    for i in 1:length(snake_body)
+        if collide(snake_head, snake_body[i])
+            gameover = true
+        end
+    end
+end
+
 #Zeichnet den Startbildschirm mit Titel und Aufforderung.
 function draw_start_screen()
     draw(Rect(0, 0, WIDTH, HEIGHT), colorant"black", fill = true)
