@@ -89,123 +89,36 @@ function generate_symmetric_obstacles(level::Int)
     end
 end
 
+# Diese Funktion aktualisiert die Richtung der Schlange basierend auf Benutzereingaben.
+function direction(x, y)
+    global vx, vy
+    vx = x
+    vy = y
+end
+
+right() = direction(speed, 0)
+left() = direction(-speed, 0)
+down() = direction(0, speed)
+up() = direction(0, -speed)
+
+# Verarbeitet Tastatureingaben, um die Schlange zu bewegen.
+function on_key_down(g::Game, k)
+    if g.keyboard.RIGHT
+        if vx !== -speed
+            right()
+        end
+    elseif g.keyboard.LEFT
+        if vx !== speed
+            left()
+        end
+    elseif g.keyboard.DOWN
+        if vy !== -speed
+            down()
+        end
+    elseif g.keyboard.UP
+        if vy !== speed
+            up()
+        end
+    end
+end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
