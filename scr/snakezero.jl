@@ -57,6 +57,37 @@ target_score_level_5 = 25
 global obstacles = []
 obstacle_color = colorant"black"
 
+# Diese Funktion generiert Hindernisse symmetrisch je nach Level.
+
+function generate_symmetric_obstacles(level::Int)
+    global obstacles
+    obstacles = []
+    if level == 2
+        push!(obstacles, Rect(WIDTH / 4, HEIGHT / 3, snake_size * 5, snake_size))
+        push!(obstacles, Rect(WIDTH / 4, 2 * HEIGHT / 3, snake_size * 5, snake_size))
+        push!(obstacles, Rect(WIDTH / 2 - snake_size / 2, HEIGHT / 4, snake_size, snake_size * 5))
+    elseif level == 3
+        push!(obstacles, Rect(WIDTH / 4, HEIGHT / 4, snake_size * 8, snake_size))
+        push!(obstacles, Rect(3 * WIDTH / 4 - snake_size * 8, HEIGHT / 4, snake_size * 8, snake_size))
+        push!(obstacles, Rect(WIDTH / 4, 3 * HEIGHT / 4, snake_size * 8, snake_size))
+        push!(obstacles, Rect(3 * WIDTH / 4 - snake_size * 8, 3 * HEIGHT / 4, snake_size * 8, snake_size))
+        push!(obstacles, Rect(WIDTH / 2 - snake_size / 2, HEIGHT / 2 - snake_size * 3, snake_size, snake_size * 6))
+    elseif level == 4
+        push!(obstacles, Rect(WIDTH / 4, HEIGHT / 4, snake_size * 3, snake_size))
+        push!(obstacles, Rect(WIDTH / 4, 3 * HEIGHT / 4, snake_size * 3, snake_size))
+        push!(obstacles, Rect(3 * WIDTH / 4 - snake_size * 3, HEIGHT / 4, snake_size * 3, snake_size))
+        push!(obstacles, Rect(3 * WIDTH / 4 - snake_size * 3, 3 * HEIGHT / 4, snake_size * 3, snake_size))
+    elseif level == 5
+        s_width = snake_size * 18
+        s_height = snake_size * 30
+        s_thickness = snake_size * 2
+        push!(obstacles, Rect((WIDTH - s_width) / 2, (HEIGHT - s_height) / 2, s_width, s_thickness))
+        push!(obstacles, Rect((WIDTH - s_width) / 2, (HEIGHT - s_height) / 2, s_thickness, s_height / 2))
+        push!(obstacles, Rect((WIDTH - s_width) / 2, HEIGHT / 2 - s_thickness / 2, s_width, s_thickness))
+        push!(obstacles, Rect((WIDTH - s_width) / 2 + s_width - s_thickness, HEIGHT / 2, s_thickness, s_height / 2))
+        push!(obstacles, Rect((WIDTH - s_width) / 2, (HEIGHT + s_height) / 2 - s_thickness, s_width, s_thickness))
+    end
+end
 
 
 
