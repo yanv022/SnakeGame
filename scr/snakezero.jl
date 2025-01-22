@@ -152,6 +152,18 @@ function collide_special_apple()
     end
 end
 
+# Überprüft, ob der Schlangenkopf mit Hindernissen kollidiert.
+function collide_head_obstacles()
+    global gameover
+    if level >= 2
+        for obstacle in obstacles
+            if collide(snake_head, obstacle)
+                gameover = true
+            end
+        end
+    end
+end
+
 # Zeichnet den Game-Over-Bildschirm mit der Endpunktzahl.
 function draw_game_over_screen()
     draw(Rect(0, 0, WIDTH, HEIGHT), colorant"black", fill = true)
