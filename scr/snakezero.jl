@@ -47,6 +47,15 @@ function draw(g::Game)
         draw(text_actor)
     end 
 
+# Benutzerinteraktionen und Level-Management
+
+target_score_level_2 = 5
+target_score_level_3 = 10
+target_score_level_4 = 15
+target_score_level_5 = 25
+
+global obstacles = []
+obstacle_color = colorant"black"
 
 
 
