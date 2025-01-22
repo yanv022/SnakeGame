@@ -185,3 +185,56 @@ function update(g::Game)
         end
     end
 end
+
+ # Zeichne Hindernisse
+    if level >= 2
+        for obstacle in obstacles
+            draw(obstacle, obstacle_color, fill = true)
+        end
+    end
+    draw(headerbox, colorant"navyblue", fill = true)
+    if gameover == false
+        score_display = "Score = $score"
+        high_score_display = "High Score = $high_score"
+        level_display = "Level = $level"
+    else
+        score_display = "GAME OVER! Final Score = $score"
+        high_score_display = "High Score = $high_score"
+        level_display = "Click to Play Again"
+    end
+    y_offset = 10
+
+ # Zeichne Score, High Score und Level
+    txt1 = TextActor(score_display, "comicbd"; font_size = 24, color = Int[255, 255, 0, 255])
+    txt1.pos = (30, y_offset)
+    draw(txt1)
+    txt2 = TextActor(high_score_display, "comicbd"; font_size = 24, color = Int[255, 255, 0, 255])
+    txt2.pos = (30, y_offset + 30)
+    draw(txt2)
+  
+    txt3 = TextActor(level_display, "comicbd"; font_size = 24, color = Int[255, 255, 0, 255])
+    txt3.pos = (30, y_offset + 60)
+    draw(txt3)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
