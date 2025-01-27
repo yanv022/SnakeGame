@@ -42,6 +42,7 @@ Willkommen bei **Snake Zero**, einem klassischen Snake-Spiel, das mit der leistu
    - Installiere die GameZero-Bibliothek:  
      ```julia
      ] add GameZero
+     ] add Colors
      ```
 
 2. **Projekt klonen**:
